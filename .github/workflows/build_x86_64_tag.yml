@@ -3,7 +3,7 @@ name: build_x86_64_tag
 on:
   push:
     tags:
-      - "*.*.*"
+      - "v*.*.*"
 
 jobs:
   build-and-push-docker-image:
