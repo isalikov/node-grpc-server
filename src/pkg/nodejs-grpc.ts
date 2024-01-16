@@ -10,32 +10,32 @@ import type {
 } from '@grpc/grpc-js'
 import _m0 from 'protobufjs/minimal'
 
-export const protobufPackage = 'nodegrpc'
+export const protobufPackage = 'nodejs.grpc'
 
-export interface EchoRequest {
+export interface ServiceMethodRequest {
     message: string
 }
 
-export interface EchoResponse {
+export interface ServiceMethodResponse {
     message: string
 }
 
-function createBaseEchoRequest(): EchoRequest {
+function createBaseServiceMethodRequest(): ServiceMethodRequest {
     return { message: '' }
 }
 
-export const EchoRequest = {
-    encode(message: EchoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ServiceMethodRequest = {
+    encode(message: ServiceMethodRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.message !== '') {
             writer.uint32(10).string(message.message)
         }
         return writer
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): EchoRequest {
+    decode(input: _m0.Reader | Uint8Array, length?: number): ServiceMethodRequest {
         const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
         let end = length === undefined ? reader.len : reader.pos + length
-        const message = createBaseEchoRequest()
+        const message = createBaseServiceMethodRequest()
         while (reader.pos < end) {
             const tag = reader.uint32()
             switch (tag >>> 3) {
@@ -55,11 +55,11 @@ export const EchoRequest = {
         return message
     },
 
-    fromJSON(object: any): EchoRequest {
+    fromJSON(object: any): ServiceMethodRequest {
         return { message: isSet(object.message) ? globalThis.String(object.message) : '' }
     },
 
-    toJSON(message: EchoRequest): unknown {
+    toJSON(message: ServiceMethodRequest): unknown {
         const obj: any = {}
         if (message.message !== '') {
             obj.message = message.message
@@ -67,32 +67,32 @@ export const EchoRequest = {
         return obj
     },
 
-    create<I extends Exact<DeepPartial<EchoRequest>, I>>(base?: I): EchoRequest {
-        return EchoRequest.fromPartial(base ?? ({} as any))
+    create<I extends Exact<DeepPartial<ServiceMethodRequest>, I>>(base?: I): ServiceMethodRequest {
+        return ServiceMethodRequest.fromPartial(base ?? ({} as any))
     },
-    fromPartial<I extends Exact<DeepPartial<EchoRequest>, I>>(object: I): EchoRequest {
-        const message = createBaseEchoRequest()
+    fromPartial<I extends Exact<DeepPartial<ServiceMethodRequest>, I>>(object: I): ServiceMethodRequest {
+        const message = createBaseServiceMethodRequest()
         message.message = object.message ?? ''
         return message
     },
 }
 
-function createBaseEchoResponse(): EchoResponse {
+function createBaseServiceMethodResponse(): ServiceMethodResponse {
     return { message: '' }
 }
 
-export const EchoResponse = {
-    encode(message: EchoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ServiceMethodResponse = {
+    encode(message: ServiceMethodResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
         if (message.message !== '') {
             writer.uint32(10).string(message.message)
         }
         return writer
     },
 
-    decode(input: _m0.Reader | Uint8Array, length?: number): EchoResponse {
+    decode(input: _m0.Reader | Uint8Array, length?: number): ServiceMethodResponse {
         const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input)
         let end = length === undefined ? reader.len : reader.pos + length
-        const message = createBaseEchoResponse()
+        const message = createBaseServiceMethodResponse()
         while (reader.pos < end) {
             const tag = reader.uint32()
             switch (tag >>> 3) {
@@ -112,11 +112,11 @@ export const EchoResponse = {
         return message
     },
 
-    fromJSON(object: any): EchoResponse {
+    fromJSON(object: any): ServiceMethodResponse {
         return { message: isSet(object.message) ? globalThis.String(object.message) : '' }
     },
 
-    toJSON(message: EchoResponse): unknown {
+    toJSON(message: ServiceMethodResponse): unknown {
         const obj: any = {}
         if (message.message !== '') {
             obj.message = message.message
@@ -124,11 +124,11 @@ export const EchoResponse = {
         return obj
     },
 
-    create<I extends Exact<DeepPartial<EchoResponse>, I>>(base?: I): EchoResponse {
-        return EchoResponse.fromPartial(base ?? ({} as any))
+    create<I extends Exact<DeepPartial<ServiceMethodResponse>, I>>(base?: I): ServiceMethodResponse {
+        return ServiceMethodResponse.fromPartial(base ?? ({} as any))
     },
-    fromPartial<I extends Exact<DeepPartial<EchoResponse>, I>>(object: I): EchoResponse {
-        const message = createBaseEchoResponse()
+    fromPartial<I extends Exact<DeepPartial<ServiceMethodResponse>, I>>(object: I): ServiceMethodResponse {
+        const message = createBaseServiceMethodResponse()
         message.message = object.message ?? ''
         return message
     },
@@ -136,40 +136,40 @@ export const EchoResponse = {
 
 export type NodeGrpcService = typeof NodeGrpcService
 export const NodeGrpcService = {
-    echoMethod: {
-        path: '/nodegrpc.NodeGrpc/EchoMethod',
+    serviceMethod: {
+        path: '/nodejs.grpc.NodeGrpc/ServiceMethod',
         requestStream: false,
         responseStream: false,
-        requestSerialize: (value: EchoRequest) => Buffer.from(EchoRequest.encode(value).finish()),
-        requestDeserialize: (value: Buffer) => EchoRequest.decode(value),
-        responseSerialize: (value: EchoResponse) => Buffer.from(EchoResponse.encode(value).finish()),
-        responseDeserialize: (value: Buffer) => EchoResponse.decode(value),
+        requestSerialize: (value: ServiceMethodRequest) => Buffer.from(ServiceMethodRequest.encode(value).finish()),
+        requestDeserialize: (value: Buffer) => ServiceMethodRequest.decode(value),
+        responseSerialize: (value: ServiceMethodResponse) => Buffer.from(ServiceMethodResponse.encode(value).finish()),
+        responseDeserialize: (value: Buffer) => ServiceMethodResponse.decode(value),
     },
 } as const
 
 export interface NodeGrpcServer extends UntypedServiceImplementation {
-    echoMethod: handleUnaryCall<EchoRequest, EchoResponse>
+    serviceMethod: handleUnaryCall<ServiceMethodRequest, ServiceMethodResponse>
 }
 
 export interface NodeGrpcClient extends Client {
-    echoMethod(
-        request: EchoRequest,
-        callback: (error: ServiceError | null, response: EchoResponse) => void,
+    serviceMethod(
+        request: ServiceMethodRequest,
+        callback: (error: ServiceError | null, response: ServiceMethodResponse) => void,
     ): ClientUnaryCall
-    echoMethod(
-        request: EchoRequest,
+    serviceMethod(
+        request: ServiceMethodRequest,
         metadata: Metadata,
-        callback: (error: ServiceError | null, response: EchoResponse) => void,
+        callback: (error: ServiceError | null, response: ServiceMethodResponse) => void,
     ): ClientUnaryCall
-    echoMethod(
-        request: EchoRequest,
+    serviceMethod(
+        request: ServiceMethodRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: ServiceError | null, response: EchoResponse) => void,
+        callback: (error: ServiceError | null, response: ServiceMethodResponse) => void,
     ): ClientUnaryCall
 }
 
-export const NodeGrpcClient = makeGenericClientConstructor(NodeGrpcService, 'nodegrpc.NodeGrpc') as unknown as {
+export const NodeGrpcClient = makeGenericClientConstructor(NodeGrpcService, 'nodejs.grpc.NodeGrpc') as unknown as {
     new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): NodeGrpcClient
     service: typeof NodeGrpcService
     serviceName: string

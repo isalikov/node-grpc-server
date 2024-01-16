@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package nodejs.grpc;
+
+service NodeGrpc {
+    rpc ServiceMethod(ServiceMethodRequest) returns (ServiceMethodResponse) {}
+}
+
+message ServiceMethodRequest {
+    string message = 1;
+}
+
+message ServiceMethodResponse {
+    string message = 1;
+}
